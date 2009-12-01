@@ -68,8 +68,8 @@ var Database = new Class({
 	options: {
 		installGoogleGears: true
 	},
-    
-    initialize: function(name, options){
+	
+	initialize: function(name, options){
 		
 		if (!Browser.loaded)
 			alert('Database: Please wait until the DOM is ready!');
