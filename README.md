@@ -36,3 +36,8 @@ License
 ---
 
 See [license](mootools-database/blob/master/license) file.
+
+Projects using Mootools Database
+---
+
+* [Eazy Shopping List](http://github.com/SunboX/EazyShoppingList)
