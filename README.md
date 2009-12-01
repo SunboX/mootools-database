@@ -12,7 +12,7 @@ Required Mootools More Plugins:
 Demo
 ---
 
-See [demo](master/demos/index.html) file.
+See [demo](mootools-database/blob/master/demos/index.html) file.
 
 Syntax
 ---
@@ -35,4 +35,4 @@ installGoogleGears - (boolean: defaults to true) If set to true it promps to ins
 License
 ---
 
-See [license](master/license) file.
+See [license](mootools-database/blob/master/license) file.
