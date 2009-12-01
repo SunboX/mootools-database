@@ -1,7 +1,7 @@
 Mootools Database Wrapper
 ===
 
-Offers a Mootools way to interface with html5 databases (also known a "persistent storage").
+Offers a Mootools way to interface with html5 databases (also known as "persistent storage").
 Tries to use google gears if no html5 database is found.
 It requires Mootools and is tested with v1.2.4.
 
