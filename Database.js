@@ -77,13 +77,9 @@ var Database = new Class({
 		this.setOptions(options);
 		
 		if (Browser.Database.name == 'unknown') {
+			if (Browser.Database.name == 'unknown') {
 			if(this.options.installGoogleGears && confirm('No valid database found! Do you want to install Google Gears database?'))
-			{
-				new URI(
-					'http://gears.google.com/?action=install&return=' + 
-					escape(new URI(document.location.href).toString())
-				).go();
-			}
+				new URI('http://gears.google.com/?action=install&return=' + escape(document.location.href)).go();
 			return;
 		}
 		
