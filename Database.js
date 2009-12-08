@@ -9,7 +9,7 @@ copyright: Copyright (c) 2009 Dipl.-Ing. (FH) André Fiedler <kontakt@visualdrug
 
 license: MIT-style license.
 
-version. 0.9
+version. 0.9.1
 
 requires:
 - /Options
