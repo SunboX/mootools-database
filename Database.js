@@ -3,7 +3,7 @@
 
 script: Database.js
 
-description: Offers a Mootools way to interface with html5 databases (also known a "persistent storage"). Tries to use google gears if no html5 database is found.
+description: Offers a Mootools way to interface with html5 databases (also known as "persistent storage"). Tries to use google gears if no html5 database is found.
 
 copyright: Copyright (c) 2009 Dipl.-Ing. (FH) André Fiedler <kontakt@visualdrugs.net>
 
@@ -163,16 +163,9 @@ Database.ResultSet.Row = new Class({
 		
 		if (this.html5) 
 			col = this.row[index];
-		else {
-			var i = 0;
-			while (i < this.row.fieldCount()) {
-				if (this.row.fieldName(i) == index) {
-					col = this.row.field(i);
-					break;
-				}
-				i++;
-			}
-		}
+		else
+			col = this.row.fieldByName(index);
+		
 		return col || defaultValue;
 	}
 });
