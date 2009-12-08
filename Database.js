@@ -85,14 +85,18 @@ var Database = new Class({
 		
 		this.html5 = Browser.Database.name == 'html5';
 		
-		if(this.html5)
+		if (this.html5) {
 			this.db = openDatabase(name, this.options.version, '', 65536);
-		else{
+			this.dbVersion = this.db.version;
+		} else {
 			this.db = google.gears.factory.create('beta.database');
 			this.db.open(name);
 			this.db.execute('CREATE TABLE IF NOT EXISTS DATABASE_METADATA (version TEXT NOT NULL)');
 			var rs = this.db.execute('SELECT version FROM DATABASE_METADATA');
-			if(!rs.isValidRow()) {
+			if (rs.isValidRow()) {
+				this.dbVersion = rs.fieldByName('version');
+			} else {
+				this.dbVersion = this.options.version;
 				this.db.execute('INSERT INTO DATABASE_METADATA (version) VALUES (?)', [this.options.version]);
 			}
 		}
@@ -130,11 +134,7 @@ var Database = new Class({
 	},
 	
 	getVersion: function(){
-		if(this.html5)
-			return this.db.version;
-		
-		var rs = this.db.execute('SELECT version FROM DATABASE_METADATA');
-        return rs.fieldByName('version');
+		return this.dbVersion;
 	},
 	
 	changeVersion: function(from, to){
@@ -142,6 +142,8 @@ var Database = new Class({
 			this.db.changeVersion(from, to);
 		else
 			this.db.execute('UPDATE DATABASE_METADATA SET version = ? WHERE version = ?', [to, from]);
+			
+		this.dbVersion = to;
 	}
 });
 
