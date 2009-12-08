@@ -66,6 +66,7 @@ var Database = new Class({
 	Implements: [Options],
 	
 	options: {
+		version: '1.0',
 		installGoogleGears: true
 	},
 	
@@ -77,7 +78,6 @@ var Database = new Class({
 		this.setOptions(options);
 		
 		if (Browser.Database.name == 'unknown') {
-			if (Browser.Database.name == 'unknown') {
 			if(this.options.installGoogleGears && confirm('No valid database found! Do you want to install Google Gears database?'))
 				new URI('http://gears.google.com/?action=install&return=' + escape(document.location.href)).go();
 			return;
@@ -86,10 +86,15 @@ var Database = new Class({
 		this.html5 = Browser.Database.name == 'html5';
 		
 		if(this.html5)
-			this.db = openDatabase(name, '1.0', '', 65536);
+			this.db = openDatabase(name, this.options.version, '', 65536);
 		else{
 			this.db = google.gears.factory.create('beta.database');
 			this.db.open(name);
+			this.db.execute('CREATE TABLE IF NOT EXISTS DATABASE_METADATA (version TEXT NOT NULL)');
+			var rs = this.db.execute('SELECT version FROM DATABASE_METADATA');
+			if(!rs.isValidRow()) {
+				this.db.execute('INSERT INTO DATABASE_METADATA (version) VALUES (?)', [this.options.version]);
+			}
 		}
 		
 		this.lastInsertRowId = 0;
@@ -122,6 +127,21 @@ var Database = new Class({
 	
 	close: function(){
 		this.db.close();
+	},
+	
+	getVersion: function(){
+		if(this.html5)
+			return this.db.version;
+		
+		var rs = this.db.execute('SELECT version FROM DATABASE_METADATA');
+        return rs.fieldByName('version');
+	},
+	
+	changeVersion: function(from, to){
+		if(this.html5)
+			this.db.changeVersion(from, to);
+		else
+			this.db.execute('UPDATE DATABASE_METADATA SET version = ? WHERE version = ?', [to, from]);
 	}
 });
 
