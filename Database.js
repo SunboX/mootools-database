@@ -74,7 +74,7 @@ var Database = new Class({
 		this.setOptions(options);
 		
 		if (Browser.Database.name == 'unknown') {
-			if(this.options.installGoogleGears && confirm('noValidDatabase'))
+			if(this.options.installGoogleGears && confirm(MooTools.lang.get('Database', 'noValidDatabase')))
 				document.location.href = 'http://gears.google.com/?action=install&return=' + escape(document.location.href);
 			return;
 		}
