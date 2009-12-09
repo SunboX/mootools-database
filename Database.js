@@ -9,13 +9,9 @@ copyright: Copyright (c) 2009 Dipl.-Ing. (FH) André Fiedler <kontakt@visualdrug
 
 license: MIT-style license.
 
-version. 0.9.1
+version. 0.9.2
 
-requires:
-- /Options
-- /URI
-
-provides: [Database]
+provides: Database
 
 ...
 */
@@ -78,8 +74,8 @@ var Database = new Class({
 		this.setOptions(options);
 		
 		if (Browser.Database.name == 'unknown') {
-			if(this.options.installGoogleGears && confirm('No valid database found! Do you want to install Google Gears database?'))
-				new URI('http://gears.google.com/?action=install&return=' + escape(document.location.href)).go();
+			if(this.options.installGoogleGears && confirm('noValidDatabase'))
+				document.location.href = 'http://gears.google.com/?action=install&return=' + escape(document.location.href);
 			return;
 		}
 		
@@ -186,8 +182,25 @@ Database.ResultSet.Row = new Class({
 		if (this.html5) 
 			col = this.row[index];
 		else
-			col = this.row.fieldByName(index);
+			col = $type(index) == 'string' ? this.row.fieldByName(index) : this.row.field(index);
 		
 		return col || defaultValue;
 	}
 });
+
+// Avoiding MooTools.lang dependency
+(function() {
+	var phrases = {
+		'noValidDatabase': 'No valid database found! Do you want to install Google Gears database?'
+	};
+	 
+	if (MooTools.lang) {
+		MooTools.lang.set('en-US', 'Database', phrases);
+	} else {
+		MooTools.lang = {
+			get: function(from, key) {
+				return phrases[key];
+			}
+		};
+	}
+})();

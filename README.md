@@ -5,9 +5,8 @@ Offers a Mootools way to interface with html5 databases (also known as "persiste
 Tries to use google gears if no html5 database is found.
 It requires Mootools and is tested with v1.2.4.
 
-Required Mootools More Plugins:
+![Screenshot](mootools-database/blob/master/mootools-database.png)
 
-- URI (for google gears auto installation)
 
 Demo
 ---
@@ -21,7 +20,8 @@ Syntax
 var db = new Database('Mootools_Database_Demo');
 db.execute('SELECT name FROM demo WHERE id = ?;', [123], function(resultSet){
 	while(row = resultSet.next()){
-		alert(row.get('name'));
+		alert(row.get('name')); // You can get columns by key
+		alert(row.get(0));      // or by index
 	}
 });
 
@@ -39,7 +39,14 @@ if(db.getVersion() == '1.0') {
 Options
 ---
 
+version            - (string: defaults to "1.0") New databases will be created with the given version number.
 installGoogleGears - (boolean: defaults to true) If set to true it promps to install google gears.
+
+
+ToDo
+---
+
+* begin/end transaction
 
 
 License
