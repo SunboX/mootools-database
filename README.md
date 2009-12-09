@@ -39,8 +39,8 @@ if(db.getVersion() == '1.0') {
 Options
 ---
 
-version            - (string: defaults to "1.0") New databases will be created with the given version number.
-installGoogleGears - (boolean: defaults to true) If set to true it promps to install google gears.
+* version            - (string: defaults to "1.0") New databases will be created with the given version number.
+* installGoogleGears - (boolean: defaults to true) If set to true it promps to install google gears.
 
 
 ToDo
