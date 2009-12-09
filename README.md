@@ -24,6 +24,16 @@ db.execute('SELECT name FROM demo WHERE id = ?;', [123], function(resultSet){
 		alert(row.get('name'));
 	}
 });
+
+/*
+ * To make it easier for you to update your app without breaking compatibility with 
+ * earlier versions of your databases, the Database wrapper supports versioning.
+ */
+ 
+if(db.getVersion() == '1.0') {
+    db.execute('ALTER TABLE demo RENAME TO production');
+    db.changeVersion('1.0', '2.0');
+}
 </code></pre>
 
 Options
