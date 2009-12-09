@@ -5,7 +5,7 @@ Offers a Mootools way to interface with html5 databases (also known as "persiste
 Tries to use google gears if no html5 database is found.
 It requires Mootools and is tested with v1.2.4.
 
-![Screenshot](mootools-database/blob/master/mootools-database.png)
+![Screenshot](http://github.com/SunboX/mootools-database/raw/master/mootools-database.png)
 
 
 Demo
