@@ -33,18 +33,24 @@
 			db.execute('CREATE TABLE IF NOT EXISTS demo (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, counter INTEGER NOT NULL DEFAULT 0, time INTEGER NOT NULL);');
 		
 			/* update counter */
-			db.execute('INSERT INTO demo (counter, time) VALUES (?, ?);', [1, $time()]);
+			db.execute('INSERT INTO demo (counter, time) VALUES (?, ?);', {
+				
+				values: [1, $time()]
+			});
 			
 			/* read counter */
-			db.execute('SELECT SUM(counter) AS count FROM demo;', null, function(resultSet){
+			db.execute('SELECT SUM(counter) AS count FROM demo;', {
 				
-				while(row = resultSet.next()){
+				onComplete: function(resultSet){
+				
+					while (row = resultSet.next()) {
 					
-					new Element('div', {
+						new Element('div', {
 						
-						text: 'Counter = ' + row.get('count')
+							text: 'Counter = ' + row.get('count')
 						
-					}).inject(document.body);	
+						}).inject(document.body);
+					}
 				}
 			});
 		});

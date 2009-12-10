@@ -18,10 +18,16 @@ Syntax
 
 <pre><code>
 var db = new Database('Mootools_Database_Demo');
-db.execute('SELECT name FROM demo WHERE id = ?;', [123], function(resultSet){
-	while(row = resultSet.next()){
-		alert(row.get('name')); // You can get columns by key
-		alert(row.get(0));      // or by index
+db.execute('SELECT name FROM demo WHERE id = ?;', {
+    values: [123],
+    onComplete: function(resultSet){
+		while(row = resultSet.next()){
+			alert(row.get('name')); // You can get columns by key
+			alert(row.get(0));      // or by index
+		}
+	},
+	onError: function(error){
+		alert('Oops: ' + error.message);
 	}
 });
 
