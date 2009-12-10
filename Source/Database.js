@@ -5,11 +5,15 @@ script: Database.js
 
 description: Offers a Mootools way to interface with html5 databases (also known as "persistent storage"). Tries to use google gears if no html5 database is found.
 
+authors: Dipl.-Ing. (FH) André Fiedler <kontakt@visualdrugs.net>
+
 copyright: Copyright (c) 2009 Dipl.-Ing. (FH) André Fiedler <kontakt@visualdrugs.net>
 
 license: MIT-style license.
 
-version. 0.9.3
+version: 0.9.3
+
+requires: core:1.2.4: '*'
 
 provides: Database
 
