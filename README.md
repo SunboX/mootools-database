@@ -13,7 +13,7 @@ Demo
 
 See [demo](mootools-database/blob/master/demos/index.html) file.
 
-Syntax
+How to Use
 ---
 
 <pre><code>
