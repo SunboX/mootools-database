@@ -32,8 +32,9 @@ How to Use
 	});
 
 	/*
-	 * To make it easier for you to update your app without breaking compatibility with 
-	 * earlier versions of your databases, the Database wrapper supports versioning.
+	 * To make it easier for you to update your app without
+	 * breaking compatibility with earlier versions of your
+	 * databases, the Database wrapper supports versioning.
 	 */
 	 
 	if(db.getVersion() == '1.0') {
