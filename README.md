@@ -11,7 +11,7 @@ It requires Mootools and is tested with v1.2.4.
 Demo
 ---
 
-See [demo](mootools-database/blob/master/demos/index.html) file.
+You can see a simple demo in [this shell](http://mooshell.net/Buc7e/).
 
 How to Use
 ---
