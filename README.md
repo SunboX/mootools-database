@@ -57,8 +57,7 @@ Limitations
 
 HTML 5 Databases
 
-* Only the most recent versions of browsers support html 5 storage: FireFox 3.6, Fennec 1.0, Safari 4, Mobile Safari and IE 8
-* IE 8 allows 10 MB of storage, but other browsers only allow 5 MB
+* Only the most recent versions of browsers support html 5 storage: FireFox 3.6, Fennec 1.0, Safari 4, Mobile Safari
 
 Google Gears Databases
 
