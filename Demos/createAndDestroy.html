@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<!--
+		Mootools Database Test
+	  
+		Copyright:
+		  Copyright (c) 2009 Dipl.-Ing. (FH) André Fiedler <kontakt@visualdrugs.net>
+		  
+		License:
+		  MIT-style license
+		  
+		Version
+		  0.9
+	-->
+	
+    <title>Mootools Database</title>
+	
+	<!-- Scripts -->
+	
+	<script src="mootools-core.js" 	type="text/javascript"></script>
+	<script src="../Source/Database.js" 	type="text/javascript"></script>
+	
+	<script type="text/javascript">
+		
+		window.addEvent('domready', function(){
+			
+			/* create a database */
+			var db = new Database('Mootools_Database_CAD_Demo');
+			
+			/* create db table if not exist */
+			db.execute('CREATE TABLE IF NOT EXISTS demo (id INTEGER);');
+		
+			$('destroy').addEvent('click', function(event){
+				event.stop();
+				
+				db.destroy();
+				
+				alert('Destroyed!');
+			});
+		});
+		
+	</script>
+	
+</head>
+<body>
+	<a href="#" id="destroy">» Destroy DB!</a>
+</body>
+</html>

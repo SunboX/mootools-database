@@ -11,7 +11,7 @@ copyright: Copyright (c) 2009 Dipl.-Ing. (FH) André Fiedler <kontakt@visualdrug
 
 license: MIT-style license.
 
-version: 0.9.3
+version: 0.9.4
 
 requires: core:1.2.4: '*'
 
@@ -67,6 +67,7 @@ var Database = new Class({
 	
 	options: {
 		version: '1.0',
+		estimatedSize: 65536,
 		installGoogleGears: true
 	},
 	
@@ -85,12 +86,14 @@ var Database = new Class({
 		
 		this.html5 = Browser.Database.name == 'html5';
 		
+		this.dbName = name;
+		
 		if (this.html5) {
-			this.db = openDatabase(name, this.options.version, '', 65536);
+			this.db = openDatabase(this.dbName, this.options.version, '', this.options.estimatedSize);
 			this.dbVersion = this.db.version;
 		} else {
 			this.db = google.gears.factory.create('beta.database');
-			this.db.open(name);
+			this.db.open(this.dbName);
 			this.db.execute('CREATE TABLE IF NOT EXISTS DATABASE_METADATA (version TEXT NOT NULL)');
 			var rs = this.db.execute('SELECT version FROM DATABASE_METADATA');
 			if (rs.isValidRow()) {
@@ -100,6 +103,9 @@ var Database = new Class({
 				this.db.execute('INSERT INTO DATABASE_METADATA (version) VALUES (?)', [this.options.version]);
 			}
 		}
+		
+		if (!this.db)
+			alert(MooTools.lang.get('Database', 'failedToOpenDatabase'));
 		
 		this.lastInsertRowId = 0;
 	},
@@ -138,10 +144,6 @@ var Database = new Class({
 		return this.lastInsertRowId;
 	},
 	
-	close: function(){
-		this.db.close();
-	},
-	
 	getVersion: function(){
 		return this.dbVersion;
 	},
@@ -153,6 +155,18 @@ var Database = new Class({
 			this.db.execute('UPDATE DATABASE_METADATA SET version = ? WHERE version = ?', [to, from]);
 			
 		this.dbVersion = to;
+	},
+	
+	close: function(){
+		this.db.close();
+	},
+	
+	destroy: function(){
+		if(this.html5){
+			// html5 seems not offering a method to remove databases
+			// "DROP DATABASE " + dbName; Does not the trick
+		} else
+			this.db.remove(); // And in gears it´s not always working :(
 	}
 });
 
@@ -176,7 +190,8 @@ Database.ResultSet = new Class({
 			if (this.rs.isValidRow()) {
 				row = new Database.ResultSet.Row(this.rs);
 				this.index++;
-			}
+			} else
+				this.rs.close();
 		}
 		return row;
 	}
@@ -204,7 +219,8 @@ Database.ResultSet.Row = new Class({
 // Avoiding MooTools.lang dependency
 (function() {
 	var phrases = {
-		'noValidDatabase': 'No valid database found! Do you want to install Google Gears database?'
+		'noValidDatabase': 'No valid database found! Do you want to install Google Gears database?',
+		'failedToOpenDatabase': 'Failed to open the database on disk. This is probably because the version was bad or there is not enough space left in this domain´s quota'
 	};
 	 
 	if (MooTools.lang) {
