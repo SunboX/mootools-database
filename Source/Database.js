@@ -212,7 +212,7 @@ Database.ResultSet.Row = new Class({
 		else
 			col = $type(index) == 'string' ? this.row.fieldByName(index) : this.row.field(index);
 		
-		return col || defaultValue;
+		return $chk(col) ? col : defaultValue;
 	}
 });
 
