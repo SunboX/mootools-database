@@ -11,7 +11,7 @@ copyright: Copyright (c) 2009 Dipl.-Ing. (FH) André Fiedler <kontakt@visualdrug
 
 license: MIT-style license.
 
-version: 0.9.4
+version: 0.9.5
 
 requires: core:1.2.4: '*'
 
